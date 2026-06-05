@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zayan Irfan</title>
+<meta name="description" content="Zayan Irfan — Digital Marketer, CS Student, Future Founder. Pakistan.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Montserrat:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+
+:root{
+  --black:#080808;
+  --black2:#0e0e0e;
+  --black3:#141414;
+  --black4:#1c1c1c;
+  --border:#222222;
+  --border2:rgba(255,255,255,0.06);
+
+  --gold:#c9a84c;
+  --gold2:#e0bc6a;
+  --gold3:#f0d080;
+  --gold-dim:rgba(201,168,76,0.12);
+  --gold-line:rgba(201,168,76,0.2);
+
+  --white:#f5f0e8;
+  --white2:#c8c0b0;
+  --muted:rgba(245,240,232,0.4);
+  --faint:rgba(245,240,232,0.12);
+
+  --D:'Cormorant Garamond',serif;
+  --S:'Montserrat',sans-serif;
+  --M:'JetBrains Mono',monospace;
+
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+
+html{scroll-behavior:smooth;overflow-x:hidden;}
+body{background:var(--black);color:var(--white);font-family:var(--S);overflow-x:hidden;cursor:none;}
+
+/* ── CURSOR ── */
+#cur,#cur-r{position:fixed;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
+#cur{width:5px;height:5px;background:var(--gold);}
+#cur-r{width:32px;height:32px;border:1px solid var(--gold-line);transition:width .22s,height .22s,border-color .22s;}
+.ch #cur-r{width:48px;height:48px;border-color:rgba(201,168,76,.5);}
+
+/* ── LOADER ── */
+#loader{
+  position:fixed;inset:0;z-index:8000;
+  background:var(--black);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:40px;
+  transition:opacity .8s ease,visibility .8s;
+}
+#loader.out{opacity:0;visibility:hidden;pointer-events:none;}
+.ld-logo{
+  font-family:var(--D);
+  font-size:clamp(48px,9vw,100px);
+  font-weight:300;letter-spacing:.12em;
+  overflow:hidden;display:flex;gap:.08em;
+}
+.ld-logo span{
+  display:inline-block;
+  transform:translateY(110%);opacity:0;
+}
+.ld-logo .gi{font-style:italic;color:var(--gold);}
+.ld-line{
+  width:120px;height:1px;
+  background:var(--border);
+  position:relative;overflow:hidden;
+}
+.ld-line::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,var(--gold),var(--gold2));
+  transform:scaleX(0);transform-origin:left;
+}
+.ld-mono{font-family:var(--M);font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);}
+
+/* ── SIDE STRIP ── */
+.sstrip{
+  position:fixed;left:22px;top:50%;transform:translateY(-50%);
+  z-index:400;
+  display:flex;flex-direction:column;align-items:center;gap:14px;
+  opacity:0;transition:opacity .5s ease 2.3s;
+}
+.sstrip.show{opacity:1;}
+.ssdot{width:4px;height:4px;border-radius:50%;background:var(--gold);animation:blink 2.5s ease-in-out infinite;}
+.sslink{
+  writing-mode:vertical-rl;
+  font-family:var(--M);font-size:8px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;
+  transition:color .2s,transform .2s;
+}
+.sslink:hover{color:var(--gold);transform:translateX(-2px);}
+.ssrule{width:1px;height:44px;background:linear-gradient(to bottom,var(--faint),transparent);}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:600;
+  padding:28px 56px;
+  display:flex;align-items:center;justify-content:space-between;
+  transition:all .35s ease;
+}
+nav.on{
+  background:rgba(8,8,8,.95);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  padding:18px 56px;
+}
+.nlogo{
+  font-family:var(--D);font-size:22px;font-weight:300;letter-spacing:.2em;
+  color:var(--white);text-decoration:none;
+}
+.nlogo em{font-style:italic;color:var(--gold);}
+.nlinks{display:flex;gap:36px;list-style:none;}
+.nlinks a{
+  font-family:var(--M);font-size:9px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;transition:color .2s;
+}
+.nlinks a:hover{color:var(--white);}
+.ncta{
+  font-family:var(--M);font-size:9px;letter-spacing:.16em;text-transform:uppercase;
+  padding:10px 24px;
+  border:1px solid var(--gold-line);
+  color:var(--gold);text-decoration:none;
+  position:relative;overflow:hidden;transition:color .3s;
+}
+.ncta::before{
+  content:'';position:absolute;inset:0;
+  background:var(--gold);
+  transform:translateY(101%);transition:transform .3s var(--ease);
+}
+.ncta:hover{color:var(--black);}
+.ncta:hover::before{transform:translateY(0);}
+.ncta span{position:relative;z-index:1;}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  display:grid;grid-template-rows:1fr auto auto;
+  position:relative;overflow:hidden;
+}
+
+/* Subtle grid */
+.hgrid{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(var(--border2) 1px,transparent 1px),
+    linear-gradient(90deg,var(--border2) 1px,transparent 1px);
+  background-size:72px 72px;
+}
+.hgrid::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 80% at 50% 50%,transparent 20%,var(--black) 100%);
+}
+
+/* Gold radial glow — very subtle */
+.hglow{
+  position:absolute;width:800px;height:800px;border-radius:50%;
+  background:radial-gradient(circle,rgba(201,168,76,.05) 0%,transparent 70%);
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  pointer-events:none;
+}
+
+/* Ghost */
+.hghost{
+  position:absolute;right:-30px;bottom:-80px;
+  font-family:var(--D);font-weight:300;
+  font-size:clamp(180px,28vw,440px);
+  line-height:.82;letter-spacing:.02em;
+  color:transparent;
+  -webkit-text-stroke:1px rgba(201,168,76,.05);
+  pointer-events:none;user-select:none;text-align:right;
+}
+
+.hinner{
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:170px 56px 0;
+  position:relative;z-index:2;
+}
+
+.htag{
+  display:flex;align-items:center;gap:14px;
+  font-family:var(--M);font-size:9px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:28px;
+  opacity:0;animation:fadeUp .7s var(--ease) .9s forwards;
+}
+.htag-line{width:32px;height:1px;background:var(--gold);}
+
+/* Main name */
+.hname{
+  font-family:var(--D);font-weight:300;
+  font-size:clamp(88px,15vw,210px);
+  line-height:.86;letter-spacing:.04em;
+}
+.hrow{display:block;overflow:hidden;}
+.hrow b{
+  display:block;font-weight:300;
+  transform:translateY(110%);
+  animation:slideUp .95s var(--ease) forwards;
+}
+.hrow:nth-child(1) b{animation-delay:.95s;}
+.hrow:nth-child(2) b{
+  animation-delay:1.1s;
+  font-style:italic;
+  color:var(--gold);
+}
+
+/* Hero contact row */
+.hcontacts{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--border);
+  opacity:0;animation:fadeIn .7s ease 1.7s forwards;
+  position:relative;z-index:2;
+}
+.hc{
+  padding:20px 28px;
+  border-right:1px solid var(--border);
+  text-decoration:none;color:var(--white);
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  transition:background .25s;
+  position:relative;overflow:hidden;
+}
+.hc::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,var(--gold),transparent);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .35s var(--ease);
+}
+.hc:hover{background:rgba(201,168,76,.04);}
+.hc:hover::after{transform:scaleX(1);}
+.hc:last-child{border-right:none;}
+.hc-lbl{font-family:var(--M);font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
+.hc-val{font-size:11.5px;font-weight:400;color:var(--white);}
+.hc-arr{font-size:14px;color:var(--faint);flex-shrink:0;transition:color .2s,transform .2s;}
+.hc:hover .hc-arr{color:var(--gold);transform:translate(3px,-3px);}
+
+/* Hero stats */
+.hstats{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--border);
+  opacity:0;animation:fadeIn .7s ease 1.9s forwards;
+}
+.hst{
+  padding:22px 28px 22px 56px;
+  border-right:1px solid var(--border);
+}
+.hst:last-child{border-right:none;}
+.hst-n{
+  font-family:var(--D);font-weight:600;font-size:32px;
+  letter-spacing:.01em;line-height:1;margin-bottom:4px;
+  color:var(--gold);
+}
+.hst-l{font-family:var(--M);font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+
+/* ── TICKER ── */
+.ticker{
+  overflow:hidden;
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  background:var(--black2);
+}
+.ttrack{
+  display:flex;white-space:nowrap;
+  padding:12px 0;
+  animation:tick 26s linear infinite;
+}
+.titem{
+  font-family:var(--M);font-size:9px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--muted);padding:0 32px;
+  display:flex;align-items:center;gap:32px;
+}
+.titem::after{content:'—';color:var(--gold);opacity:.5;font-size:8px;}
+.titem:last-child::after{content:'';}
+
+/* ── SECTIONS ── */
+.sec{padding:110px 56px;position:relative;z-index:1;}
+.shead{
+  display:flex;align-items:baseline;justify-content:space-between;
+  border-bottom:1px solid var(--border);
+  padding-bottom:18px;margin-bottom:64px;
+}
+.stag{font-family:var(--M);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);}
+.stitle{
+  font-family:var(--D);font-weight:300;
+  font-size:clamp(34px,4.5vw,60px);letter-spacing:.06em;
+  color:var(--white);
+}
+
+/* ── ABOUT ── */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
+.about-left{}
+.about-pull{
+  font-family:var(--D);font-style:italic;font-weight:300;
+  font-size:clamp(22px,2.8vw,38px);line-height:1.45;
+  color:var(--white);margin-bottom:32px;
+  padding-bottom:32px;
+  border-bottom:1px solid var(--border);
+}
+.about-pull em{font-style:normal;font-weight:600;color:var(--gold);}
+.about-p{font-size:12.5px;font-weight:300;line-height:2;color:var(--muted);margin-bottom:14px;}
+.about-p:last-child{margin-bottom:0;}
+.scards{display:grid;grid-template-columns:1fr 1fr;gap:2px;}
+.sc{
+  background:var(--black2);border:1px solid var(--border);
+  padding:28px 22px;
+  position:relative;overflow:hidden;
+  transition:border-color .3s,transform .3s;
+}
+.sc::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,var(--gold),transparent);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .35s var(--ease);
+}
+.sc:hover{border-color:var(--gold-line);transform:translateY(-3px);}
+.sc:hover::before{transform:scaleX(1);}
+.sc-n{
+  font-family:var(--D);font-weight:600;font-size:44px;
+  letter-spacing:-.01em;line-height:1;margin-bottom:6px;
+  color:var(--gold);
+}
+.sc-l{font-family:var(--M);font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+.sc.full{grid-column:1/-1;}
+.sc.full .sc-n{font-size:36px;}
+
+/* ── SKILLS ── */
+.skgrid{display:grid;grid-template-columns:1fr 1fr;gap:2px;}
+.sk{
+  background:var(--black2);border:1px solid var(--border);
+  padding:48px 40px;
+  position:relative;overflow:hidden;
+  transition:border-color .3s,transform .3s;
+}
+.sk::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,var(--gold),rgba(201,168,76,0));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .4s var(--ease);
+}
+.sk:hover{border-color:var(--gold-line);transform:translateY(-3px);}
+.sk:hover::before{transform:scaleX(1);}
+.sk-ghost{
+  position:absolute;top:-15px;right:10px;
+  font-family:var(--D);font-size:110px;font-weight:300;
+  color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.03);
+  line-height:1;pointer-events:none;
+  transition:-webkit-text-stroke-color .3s;
+}
+.sk:hover .sk-ghost{-webkit-text-stroke-color:rgba(201,168,76,.08);}
+.sk-icon{font-size:26px;margin-bottom:22px;}
+.sk-title{
+  font-family:var(--D);font-weight:400;font-size:28px;
+  letter-spacing:.06em;margin-bottom:16px;line-height:1;color:var(--white);
+}
+.sk-desc{font-size:12px;font-weight:300;line-height:1.95;color:var(--muted);margin-bottom:26px;}
+.sk-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.stk{
+  font-family:var(--M);font-size:8px;letter-spacing:.1em;text-transform:uppercase;
+  border:1px solid var(--border);padding:4px 11px;color:var(--muted);
+  transition:border-color .2s,color .2s;
+}
+.sk:hover .stk{border-color:var(--gold-line);color:var(--gold2);}
+
+/* ── WORK ── */
+.work-grid{display:flex;flex-direction:column;gap:2px;}
+
+/* Facebook — large card */
+.wcard-main{
+  background:var(--black2);border:1px solid var(--border);
+  padding:64px 56px;
+  position:relative;overflow:hidden;
+  transition:border-color .3s;
+}
+.wcard-main:hover{border-color:var(--gold-line);}
+.wcard-ghost{
+  position:absolute;right:-40px;top:50%;transform:translateY(-50%);
+  font-family:var(--D);font-weight:300;
+  font-size:clamp(140px,20vw,280px);
+  color:transparent;-webkit-text-stroke:1px rgba(201,168,76,.05);
+  line-height:1;pointer-events:none;user-select:none;
+}
+
+.wcard-tag{
+  font-family:var(--M);font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:24px;
+  display:flex;align-items:center;gap:10px;
+}
+.wcard-tag-line{width:22px;height:1px;background:var(--gold);}
+
+.wcard-title{
+  font-family:var(--D);font-weight:300;
+  font-size:clamp(36px,5vw,72px);
+  letter-spacing:.03em;line-height:.95;
+  color:var(--white);margin-bottom:24px;max-width:640px;
+}
+.wcard-title span{font-style:italic;color:var(--gold);}
+.wcard-desc{
+  font-size:12.5px;font-weight:300;line-height:1.95;
+  color:var(--muted);max-width:500px;margin-bottom:48px;
+}
+.wcard-metrics{
+  display:flex;gap:0;
+  border-top:1px solid var(--border);padding-top:36px;
+}
+.wm{padding-right:44px;margin-right:44px;border-right:1px solid var(--border);}
+.wm:last-child{border-right:none;padding-right:0;margin-right:0;}
+.wm-n{
+  font-family:var(--D);font-weight:600;font-size:48px;
+  letter-spacing:-.01em;line-height:1;margin-bottom:4px;color:var(--white);
+}
+.wm-l{font-family:var(--M);font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);}
+
+/* Instagram cards — two column */
+.wcard-row{display:grid;grid-template-columns:1fr 1fr;gap:2px;}
+.wcard-sm{
+  background:var(--black2);border:1px solid var(--border);
+  padding:44px 40px;
+  position:relative;overflow:hidden;
+  transition:border-color .3s,transform .3s;
+}
+.wcard-sm::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:2px;
+  background:linear-gradient(to bottom,var(--gold),transparent);
+  transform:scaleY(0);transform-origin:top;
+  transition:transform .35s var(--ease);
+}
+.wcard-sm:hover{border-color:var(--gold-line);transform:translateY(-3px);}
+.wcard-sm:hover::before{transform:scaleY(1);}
+.wcard-sm .wcard-tag{margin-bottom:20px;}
+.wcard-sm .wcard-title{font-size:clamp(28px,3.5vw,44px);margin-bottom:16px;}
+.wcard-sm .wcard-desc{font-size:12px;margin-bottom:32px;}
+.wcard-sm .wcard-metrics{padding-top:28px;}
+.wcard-sm .wm-n{font-size:36px;}
+
+/* ── COLLAB ── */
+.collab-panel{
+  background:var(--black2);border:1px solid var(--border);
+  padding:72px 56px;
+  display:grid;grid-template-columns:1fr auto;
+  align-items:center;gap:60px;
+  transition:border-color .3s;
+}
+.collab-panel:hover{border-color:var(--gold-line);}
+.collab-tag{
+  font-family:var(--M);font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:20px;
+  display:flex;align-items:center;gap:10px;
+}
+.collab-tag-line{width:22px;height:1px;background:var(--gold);}
+.collab-title{
+  font-family:var(--D);font-weight:300;
+  font-size:clamp(32px,4vw,58px);
+  letter-spacing:.03em;line-height:1;
+  color:var(--white);margin-bottom:20px;
+}
+.collab-title em{font-style:italic;color:var(--gold);}
+.collab-desc{font-size:12.5px;font-weight:300;line-height:1.9;color:var(--muted);max-width:520px;}
+.collab-btn{
+  font-family:var(--M);font-size:9px;letter-spacing:.18em;text-transform:uppercase;
+  padding:16px 36px;
+  border:1px solid var(--gold-line);
+  color:var(--gold);text-decoration:none;
+  white-space:nowrap;
+  position:relative;overflow:hidden;
+  transition:color .3s;flex-shrink:0;
+}
+.collab-btn::before{
+  content:'';position:absolute;inset:0;
+  background:var(--gold);
+  transform:translateY(101%);transition:transform .3s var(--ease);
+}
+.collab-btn:hover{color:var(--black);}
+.collab-btn:hover::before{transform:translateY(0);}
+.collab-btn span{position:relative;z-index:1;}
+
+/* ── BUILDING ── */
+.build-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;}
+.build-h{
+  font-family:var(--D);font-weight:300;
+  font-size:clamp(38px,5vw,72px);
+  letter-spacing:.04em;line-height:.92;margin-bottom:26px;
+}
+.build-h em{font-style:italic;color:var(--gold);}
+.build-sub{
+  font-family:var(--D);font-style:italic;font-weight:300;
+  font-size:18px;line-height:1.7;color:var(--muted);
+}
+.bitems{display:flex;flex-direction:column;gap:2px;}
+.bi{
+  background:var(--black2);border:1px solid var(--border);
+  padding:20px 24px;
+  display:grid;grid-template-columns:44px 1fr 18px;
+  align-items:center;gap:14px;
+  transition:background .25s,border-color .25s,transform .25s;
+  position:relative;overflow:hidden;
+}
+.bi::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:0;
+  background:linear-gradient(to bottom,var(--gold),transparent);
+  transition:width .3s var(--ease);
+}
+.bi:hover{background:var(--gold-dim);border-color:var(--gold-line);transform:translateX(4px);}
+.bi:hover::before{width:2px;}
+.bi-n{font-family:var(--D);font-size:26px;font-weight:300;color:rgba(255,255,255,.08);transition:color .25s;}
+.bi:hover .bi-n{color:var(--gold);}
+.bi-t{font-size:12.5px;font-weight:500;margin-bottom:3px;letter-spacing:.01em;}
+.bi-s{font-family:var(--M);font-size:9.5px;color:var(--muted);letter-spacing:.04em;}
+.bi-a{font-size:16px;color:var(--faint);transition:color .25s,transform .25s;}
+.bi:hover .bi-a{color:var(--gold);transform:translate(3px,-3px);}
+
+/* ── CONTACT ── */
+.contact-wrap{
+  display:grid;grid-template-columns:1fr 1fr;
+  border-top:1px solid var(--border);
+  min-height:520px;
+}
+.cleft{
+  padding:88px 48px 88px 56px;
+  border-right:1px solid var(--border);
+  display:flex;flex-direction:column;justify-content:space-between;
+  position:relative;overflow:hidden;
+}
+.cleft::before{
+  content:'';position:absolute;
+  width:400px;height:400px;
+  background:radial-gradient(circle,rgba(201,168,76,.05),transparent 65%);
+  bottom:-120px;left:-120px;pointer-events:none;
+}
+.ctitle{
+  font-family:var(--D);font-weight:300;
+  font-size:clamp(52px,8vw,110px);
+  letter-spacing:.04em;line-height:.88;margin-bottom:28px;
+}
+.ctitle em{font-style:italic;color:var(--gold);}
+.csub{
+  font-family:var(--D);font-style:italic;font-weight:300;
+  font-size:18px;line-height:1.65;color:var(--muted);max-width:280px;
+}
+.cavail{
+  display:flex;align-items:center;gap:8px;
+  font-family:var(--M);font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted);margin-top:36px;
+}
+.cavail-dot{
+  width:5px;height:5px;border-radius:50%;
+  background:var(--gold);
+  box-shadow:0 0 6px var(--gold);
+  animation:blink 2.5s ease-in-out infinite;
+}
+.cright{display:flex;flex-direction:column;}
+.clink{
+  flex:1;min-height:104px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;
+  border-bottom:1px solid var(--border);
+  text-decoration:none;color:var(--white);
+  position:relative;overflow:hidden;
+  transition:background .25s;
+}
+.clink::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:0;
+  background:linear-gradient(to bottom,var(--gold),transparent);
+  transition:width .3s var(--ease);
+}
+.clink:last-child{border-bottom:none;}
+.clink:hover{background:var(--gold-dim);}
+.clink:hover::before{width:2px;}
+.clink-lbl{font-family:var(--M);font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.clink-val{font-size:13.5px;font-weight:500;}
+.clink-arr{font-size:20px;color:var(--faint);position:relative;z-index:1;transition:color .25s,transform .25s;}
+.clink:hover .clink-arr{color:var(--gold);transform:translate(4px,-4px);}
+
+/* ── FOOTER ── */
+footer{
+  border-top:1px solid varx;}
+  .about-grid{grid-template-columns:1fr;gap:40px;}
+  .skgrid{grid-template-columns:1fr;}
+  .wcard-main{padding:44px 28px;}
+  .wcard-row{grid-template-columns:1fr;}
+  .wcard-metrics{flex-direction:column;gap:24px;}
+  .wm{border-right:none;padding-right:0;margin-right:0;}
+  .collab-panel{grid-template-columns:1fr;padding:44px 28px;}
+  .build-grid{grid-template-columns:1fr;gap:40px;}
+  .contact-wrap{grid-template-columns:1fr;}
+  .cleft{padding:64px 22px;border-right:none;border-bottom:1px solid var(--border);}
+  .clink{padding:0 22px;min-height:80px;}
+  footer{padding:20px 22px;flex-direction:column;gap:8px;text-align:center;}
+  body{cursor:auto;}
+  #cur,#cur-r{display:none;}
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-r"></div>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="ld-logo" id="ldlogo"></div>
+  <div class="ld-line" id="ldline"></div>
+  <div class="ld-mono">Portfolio — Zayan Irfan</div>
+</div>
+
+<!-- SIDE STRIP -->
+<div class="sstrip" id="sstrip">
+  <div class="ssdot"></div>
+  <a href="mailto:syed.zayan.irfan@gmail.com" class="sslink">Email</a>
+  <a href="https://github.com/Zayan-Irfan" target="_blank" class="sslink">GitHub</a>
+  <a href="https://x.com/IamZayanIrfan" target="_blank" class="sslink">Twitter</a>
+  <a href="https://www.linkedin.com/in/zayan-irfan-62663b3a9" target="_blank" class="sslink">LinkedIn</a>
+  <div class="ssrule"></div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nlogo">Z<em>I</em></a>
+  <ul class="nlinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="mailto:syed.zayan.irfan@gmail.com" class="ncta"><span>Get In Touch</span></a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hgrid"></div>
+  <div class="hglow"></div>
+  <div class="hghost">ZAYAN<br>IRFAN</div>
+
+  <div class="hinner">
+    <div class="htag"><div class="htag-line"></div>Pakistan · CS Student · Digital Marketer · Future Founder</div>
+    <h1 class="hname">
+      <span class="hrow"><b>ZAYAN</b></span>
+      <span class="hrow"><b>IRFAN</b></span>
+    </h1>
+  </div>
+
+  <div class="hcontacts">
+    <a href="mailto:syed.zayan.irfan@gmail.com" class="hc">
+      <div><div class="hc-lbl">Email</div><div class="hc-val">syed.zayan.irfan@gmail.com</div></div>
+      <div class="hc-arr">↗</div>
+    </a>
+    <a href="https://www.linkedin.com/in/zayan-irfan-62663b3a9" target="_blank" class="hc">
+      <div><div class="hc-lbl">LinkedIn</div><div class="hc-val">Zayan Irfan</div></div>
+      <div class="hc-arr">↗</div>
+    </a>
+    <a href="https://github.com/Zayan-Irfan" target="_blank" class="hc">
+      <div><div class="hc-lbl">GitHub</div><div class="hc-val">Zayan-Irfan</div></div>
+      <div class="hc-arr">↗</div>
+    </a>
+    <a href="https://x.com/IamZayanIrfan" target="_blank" class="hc">
+      <div><div class="hc-lbl">Twitter / X</div><div class="hc-val">@IamZayanIrfan</div></div>
+      <div class="hc-arr">↗</div>
+    </a>
+  </div>
+
+  <div class="hstats">
+    <div class="hst"><div class="hst-n">60K</div><div class="hst-l">Facebook Followers</div></div>
+    <div class="hst"><div class="hst-n">10K</div><div class="hst-l">Instagram Followers</div></div>
+    <div class="hst"><div class="hst-n">100%</div><div class="hst-l">Organic Growth</div></div>
+    <div class="hst"><div class="hst-n">19</div><div class="hst-l">Years Old — Building Now</div></div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ttrack">
+    <div class="titem">Digital Marketer</div>
+    <div class="titem">Computer Scientist</div>
+    <div class="titem">Future Founder</div>
+    <div class="titem">60K Facebook</div>
+    <div class="titem">10K Instagram</div>
+    <div class="titem">100% Organic</div>
+    <div class="titem">Pakistan</div>
+    <div class="titem">Open to Collaborate</div>
+    <div class="titem">Digital Marketer</div>
+    <div class="titem">Computer Scientist</div>
+    <div class="titem">Future Founder</div>
+    <div class="titem">60K Facebook</div>
+    <div class="titem">10K Instagram</div>
+    <div class="titem">100% Organic</div>
+    <div class="titem">Pakistan</div>
+    <div class="titem">Open to Collaborate</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="sec" id="about">
+  <div class="shead r"><span class="stag">01 — About</span><h2 class="stitle">Who I Am</h2></div>
+  <div class="about-grid">
+    <div class="r">
+      <p class="about-pull">Building at the intersection of <em>technology</em> and <em>growth.</em></p>
+      <p class="about-p">I'm Zayan Irfan — a 19-year-old Computer Science student and digital marketer from Pakistan. I think in systems, move with intent, and build for the long term.</p>
+      <p class="about-p">Most people pick one lane. I'm building both sides of the founder equation: the technical depth to engineer real products, and the marketing instinct to make them grow. That combination is rare at any age — rarer still at 19.</p>
+      <p class="about-p">Currently completing A-Levels while laying the foundations for what comes next — startups, technology, and companies that create real value.</p>
+    </div>
+    <div class="scards">
+      <div class="sc r d1"><div class="sc-n">60K</div><div class="sc-l">Facebook Followers</div></div>
+      <div class="sc r d2"><div class="sc-n">10K</div><div class="sc-l">Instagram Followers</div></div>
+      <div class="sc r d3"><div class="sc-n">100%</div><div class="sc-l">Organic — Zero Paid Ads</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="sec" id="skills" style="padding-top:0">
+  <div class="shead r"><span class="stag">02 — Skills</span><h2 class="stitle">What I Do</h2></div>
+  <div class="skgrid">
+    <div class="sk r">
+      <div class="sk-ghost">01</div>
+      <div class="sk-icon">📈</div>
+      <div class="sk-title">Digital Marketing</div>
+      <p class="sk-desc">Audience growth, content strategy, and community building. I understand how attention works online — and how to convert it into something real. Proven across both Facebook and Instagram with zero ad spend and consistent organic growth.</p>
+      <div class="sk-tags">
+        <span class="stk">Social Media</span><span class="stk">Content Strategy</span>
+        <span class="stk">Audience Growth</span><span class="stk">Community</span><span class="stk">Analytics</span>
+      </div>
+    </div>
+    <div class="sk r d1">
+      <div class="sk-ghost">02</div>
+      <div class="sk-icon">⚙️</div>
+      <div class="sk-title">Computer Science</div>
+      <p class="sk-desc">Strong foundations in programming, algorithms, and computational thinking through A-Level Computer Science. Building toward full-stack software engineering with a long-term focus on products that scale and companies that matter.</p>
+      <div class="sk-tags">
+        <span class="stk">Programming</span><span class="stk">Algorithms</span>
+        <span class="stk">Problem Solving</span><span class="stk">Systems Thinking</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section class="sec" id="work" style="padding-top:0">
+  <div class="shead r"><span class="stag">03 — Work</span><h2 class="stitle">Case Studies</h2></div>
+  <div class="work-grid">
+
+    <!-- Facebook — main large card -->
+    <div class="wcard-main r">
+      <div class="wcard-ghost">60K</div>
+      <div class="wcard-tag"><div class="wcard-tag-line"></div>Facebook · Self-Help · 2023–2024</div>
+      <h3 class="wcard-title">Grew a self-help page to <span>60,000 followers</span> — organically, from zero.</h3>
+      <p class="wcard-desc">Built and managed a self-help content page from absolute zero to 60,000 followers over 18 months. No paid advertising. No shortcuts. Pure content strategy, consistency, and deep audience understanding. This is what execution looks like before you have a team or a budget.</p>
+      <div class="wcard-metrics">
+        <div class="wm"><div class="wm-n">60,000</div><div class="wm-l">Followers</div></div>
+        <div class="wm"><div class="wm-n">18mo</div><div class="wm-l">Timeline</div></div>
+        <div class="wm"><div class="wm-n">100%</div><div class="wm-l">Organic</div></div>
+      </div>
+    </div>
+
+    <!-- Instagram — two smaller cards -->
+    <div class="wcard-row">
+      <div class="wcard-sm r">
+        <div class="wcard-tag"><div class="wcard-tag-line"></div>Instagram · Self-Help · Page 1</div>
+        <h3 class="wcard-title">Grew to <span>5,000</span> followers organically.</h3>
+        <p class="wcard-desc">Self-help content page grown from zero with consistent posting, no paid promotion, and a focused content strategy.</p>
+        <div class="wcard-metrics">
+          <div class="wm"><div class="wm-n">5,000</div><div class="wm-l">Followers</div></div>
+          <div class="wm"><div class="wm-n">100%</div><div class="wm-l">Organic</div></div>
+        </div>
+      </div>
+      <div class="wcard-sm r d1">
+        <div class="wcard-tag"><div class="wcard-tag-line"></div>Instagram · Self-Help · Page 2</div>
+        <h3 class="wcard-title">Grew to <span>5,000</span> followers organically.</h3>
+        <p class="wcard-desc">Second self-help page — demonstrating the ability to replicate growth systems across multiple accounts simultaneously.</p>
+        <div class="wcard-metrics">
+          <div class="wm"><div class="wm-n">5,000</div><div class="wm-l">Followers</div></div>
+          <div class="wm"><div class="wm-n">100%</div><div class="wm-l">Organic</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- OPEN TO COLLABORATE -->
+<section class="sec" style="padding-top:0">
+  <div class="collab-panel r">
+    <div>
+      <div class="collab-tag"><div class="collab-tag-line"></div>Collaborations</div>
+      <h3 class="collab-title">Open to <em>working together.</em></h3>
+      <p class="collab-desc">Looking to collaborate with founders, marketers, developers, and businesses. Whether it's growing an audience, building a brand, or partnering on a project — let's talk.</p>
+    </div>
+    <a href="mailto:syed.zayan.irfan@gmail.com" class="collab-btn"><span>Start a Conversation</span></a>
+  </div>
+</section>
+  <!-- BUILDING -->
+<section class="sec" style="padding-top:0">
+  <div class="shead r"><span class="stag">04 — Now</span><h2 class="stitle">Building</h2></div>
+  <div class="build-grid">
+    <div class="r">
+      <h3 class="build-h">Laying the<br>foundation for<br><em>what's next.</em></h3>
+      <p class="build-sub">Every great company starts with someone who decided to begin before they were ready.</p>
+    </div>
+    <div class="bitems">
+      <div class="bi r"><div class="bi-n">01</div><div><div class="bi-t">A-Level Computer Science</div><div class="bi-s">Building technical foundations</div></div><div class="bi-a">↗</div></div>
+      <div class="bi r d1"><div class="bi-n">02</div><div><div class="bi-t">Software Engineering</div><div class="bi-s">Learning to ship real products</div></div><div class="bi-a">↗</div></div>
+      <div class="bi r d2"><div class="bi-n">03</div><div><div class="bi-t">First Startup</div><div class="bi-s">Finding the problem worth solving</div></div><div class="bi-a">↗</div></div>
+      <div class="bi r d3"><div class="bi-n">04</div><div><div class="bi-t">Personal Brand</div><div class="bi-s">zayanirfan.com — building in public</div></div><div class="bi-a">↗</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-wrap">
+    <div class="cleft r">
+      <div>
+        <h2 class="ctitle">LET'S<br><em>TALK.</em></h2>
+        <p class="csub">Open to opportunities, collaborations, and conversations with people building things that matter.</p>
+      </div>
+      <div class="cavail"><div class="cavail-dot"></div>Pakistan · Available Worldwide</div>
+    </div>
+    <div class="cright">
+      <a href="mailto:syed.zayan.irfan@gmail.com" class="clink r">
+        <div><div class="clink-lbl">Email</div><div class="clink-val">syed.zayan.irfan@gmail.com</div></div>
+        <div class="clink-arr">↗</div>
+      </a>
+      <a href="https://www.linkedin.com/in/zayan-irfan-62663b3a9" target="_blank" class="clink r d1">
+        <div><div class="clink-lbl">LinkedIn</div><div class="clink-val">Zayan Irfan</div></div>
+        <div class="clink-arr">↗</div>
+      </a>
+      <a href="https://github.com/Zayan-Irfan" target="_blank" class="clink r d2">
+        <div><div class="clink-lbl">GitHub</div><div class="clink-val">Zayan-Irfan</div></div>
+        <div class="clink-arr">↗</div>
+      </a>
+      <a href="https://x.com/IamZayanIrfan" target="_blank" class="clink r d3">
+        <div><div class="clink-lbl">Twitter / X</div><div class="clink-val">@IamZayanIrfan</div></div>
+        <div class="clink-arr">↗</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="ft-l">Z<em>AYAN</em> IRFAN</div>
+  <div class="ft-r">© 2026 · Pakistan · Built with intent</div>
+</footer>
+
+<script>
+/* CURSOR */
+const cur=document.getElementById('cur'),curR=document.getElementById('cur-r');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cur.style.left=mx+'px';cur.style.top=my+'px';
+});
+(function loop(){
+  rx+=(mx-rx)*.1;ry+=(my-ry)*.1;
+  curR.style.left=rx+'px';curR.style.top=ry+'px';
+  requestAnimationFrame(loop);
+})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('ch'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('ch'));
+});
+
+/* LOADER */
+(function(){
+  const name='ZAYAN IRFAN';
+  const wrap=document.getElementById('ldlogo');
+  [...name].forEach((ch,i)=>{
+    if(ch===' '){const s=document.createElement('span');s.style.cssText='display:inline-block;width:.22em';wrap.appendChild(s);return;}
+    const s=document.createElement('span');
+    s.textContent=ch;
+    const isIrfan=i>5;
+    s.style.cssText=`
+      display:inline-block;
+      transform:translateY(110%);opacity:0;
+      animation:slideUp .85s cubic-bezier(.16,1,.3,1) ${i*.06+.1}s forwards;
+      ${isIrfan?'font-style:italic;color:var(--gold);':''}
+    `;
+    wrap.appendChild(s);
+  });
+  const line=document.getElementById('ldline');
+  setTimeout(()=>{
+    line.querySelector(':not(*)');
+    line.style.cssText='width:120px;height:1px;background:var(--border);position:relative;overflow:hidden;';
+    const after=document.createElement('div');
+    after.style.cssText='position:absolute;inset:0;background:linear-gradient(90deg,var(--gold),var(--gold2));transition:transform 1s ease;transform:scaleX(0);transform-origin:left;';
+    line.appendChild(after);
+    setTimeout(()=>after.style.transform='scaleX(1)',50);
+  },100);
+  window.addEventListener('load',()=>{
+    setTimeout(()=>{
+      document.getElementById('loader').classList.add('out');
+      document.getElementById('sstrip').classList.add('show');
+    },1700);
+  });
+})();
+
+/* NAV */
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('on',scrollY>60),{passive:true});
+
+/* REVEAL */
+const obs=new IntersectionObserver(es=>{
+  es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');obs.unobserve(e.target);}});
+},{threshold:.1,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.r').forEach(el=>obs.observe(el));
+</script>
+</body>
+  </html>
